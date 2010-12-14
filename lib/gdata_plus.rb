@@ -1,4 +1,5 @@
 module GDataPlus
+  autoload "Client", "gdata_plus/client"
   autoload "Util", "gdata_plus/util"
 
   module Authenticator

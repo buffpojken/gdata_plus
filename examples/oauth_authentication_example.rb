@@ -32,12 +32,7 @@ end
 get "/picasa_album_list" do
   authenticator = session[:gdata_authenticator]
   url = "https://picasaweb.google.com/data/feed/api/user/default"
-  request = Typhoeus::Request.new(url, :method => :get)
-  authenticator.sign_request(request)
+  response = authenticator.client.submit Typhoeus::Request.new(url, :method => :get)
 
-  hydra = Typhoeus::Hydra.new
-  hydra.queue(request)
-  hydra.run
-
-  request.response.inspect
+  response.inspect
 end

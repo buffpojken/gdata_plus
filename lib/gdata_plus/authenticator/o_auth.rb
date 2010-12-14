@@ -94,6 +94,10 @@ module GDataPlus
         request.headers.merge!({"Authorization" => helper.header})
         request
       end
+
+      def client
+        ::GDataPlus::Client.new(self)
+      end
     end
   end
 end
