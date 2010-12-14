@@ -40,4 +40,12 @@ class OAuthTest < Test::Unit::TestCase
       authenticator.fetch_request_token(valid_request_token_options.merge(:foo => "bar"))
     end
   end
+
+  should "raise if invalid request passed to sign_request" do
+    authenticator = GDataPlus::Authenticator::OAuth.new(valid_constructor_options)
+    exception = assert_raises(ArgumentError) do
+      authenticator.sign_request("I'm not a request object")
+    end
+    assert_equal "request must be a Typeoeus::Request", exception.message
+  end
 end

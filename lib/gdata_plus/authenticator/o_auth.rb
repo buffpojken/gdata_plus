@@ -1,4 +1,6 @@
 require 'oauth'
+require 'oauth/request_proxy/typhoeus_request'
+require 'typhoeus'
 
 # Methods prefixed with "fetch" indicate that a request is being made to Google.
 module GDataPlus
@@ -78,6 +80,19 @@ module GDataPlus
         if @access_token && @access_secret
           ::OAuth::AccessToken.new(consumer, @access_token, @access_secret)
         end
+      end
+
+      # Adds authorization header to the specified Typeoeus::Request. The same request is also returned.
+      def sign_request(request)
+        raise ArgumentError, "request must be a Typeoeus::Request" unless request.is_a? ::Typhoeus::Request
+
+        helper = ::OAuth::Client::Helper.new(request, {
+          :consumer => consumer,
+          :request_uri => request.url,
+          :token => access_token
+        })
+        request.headers.merge!({"Authorization" => helper.header})
+        request
       end
     end
   end
