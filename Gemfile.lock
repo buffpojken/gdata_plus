@@ -7,6 +7,8 @@ GEM
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
+    mocha (0.9.10)
+      rake
     oauth (0.4.4)
     rack (1.2.1)
     rake (0.8.7)
@@ -25,6 +27,7 @@ DEPENDENCIES
   activesupport
   bundler (~> 1.0.0)
   jeweler (~> 1.5.1)
+  mocha
   oauth
   rcov
   shoulda
