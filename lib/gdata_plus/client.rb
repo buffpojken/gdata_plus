@@ -20,5 +20,13 @@ module GDataPlus
       hydra.run
       request.response
     end
+
+    [:delete, :get, :post, :put].each do |method|
+      define_method(method) do |url, request_options = {}|
+        request_options = request_options.merge(:method => method)
+        request = ::Typhoeus::Request.new(url, request_options)
+        submit request
+      end
+    end
   end
 end

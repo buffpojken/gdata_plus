@@ -31,8 +31,7 @@ end
 
 get "/picasa_album_list" do
   authenticator = session[:gdata_authenticator]
-  url = "https://picasaweb.google.com/data/feed/api/user/default"
-  response = authenticator.client.submit Typhoeus::Request.new(url, :method => :get)
+  response = authenticator.client.get("https://picasaweb.google.com/data/feed/api/user/default")
 
   response.inspect
 end
