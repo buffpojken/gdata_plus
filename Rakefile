@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "gdata_plus"
   gem.homepage = "http://github.com/balexand/gdata_plus"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeus as an HTTP client}
+  gem.description = %Q{Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeus as an HTTP client}
   gem.email = "balexand@gmail.com"
   gem.authors = ["Brian Alexander"]
 
