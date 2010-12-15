@@ -100,6 +100,6 @@ class OAuthTest < Test::Unit::TestCase
 
     authenticator.sign_request(request)
     assert request.headers["Authorization"] =~ /oauth_signature="dNDB%2Fb%2BPVt1mnLW0bJAhWo4Jkww%3D"/,
-      "wrong oauth_signature in Authorization header"
+      "wrong oauth_signature in Authorization header; this is know to fail in Ruby 1.8 but works in 1.9; anyone want to contribute a patch?"
   end
 end
