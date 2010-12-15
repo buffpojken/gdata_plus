@@ -95,8 +95,8 @@ module GDataPlus
         request
       end
 
-      def client
-        ::GDataPlus::Client.new(self)
+      def client(*args)
+        ::GDataPlus::Client.new(self, *args)
       end
     end
   end
