@@ -48,7 +48,10 @@ module GDataPlus
         options = ::GDataPlus::Util.prepare_options(options, [:scope, :oauth_callback])
 
         additional_oauth_options.merge!(:oauth_callback => options[:oauth_callback])
-        additional_request_params.merge!(:scope => options[:scope])
+
+        scope = options[:scope]
+        scope = scope.join(" ") if scope.is_a? Array
+        additional_request_params.merge!(:scope => scope)
 
         request_token = consumer.get_request_token(additional_oauth_options, additional_request_params)
         @request_token = request_token.token
