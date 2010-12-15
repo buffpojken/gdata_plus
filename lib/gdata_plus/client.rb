@@ -14,7 +14,7 @@ module GDataPlus
 
     # FIXME detect infinite redirect
     def submit(request, options = {})
-      options = ::GDataPlus::Util.prepare_options(options, [], [:gdata_version, :hydra])
+      options = ::GDataPlus::Util.prepare_options(options, [], [:gdata_version, :hydra, :no_redirect])
       hydra = options[:hydra] || Typhoeus::Hydra.hydra
 
       request.headers.merge!("GData-Version" => options[:gdata_version] || default_gdata_version)
@@ -25,8 +25,8 @@ module GDataPlus
       response = request.response
 
       # automatically follow redirects since some GData APIs (like Calendar) redirect GET requests
-      if request.method.to_sym == :get && (response.code == HTTP_MOVED_PERMANENTLY || response.code == HTTP_FOUND)
-        response = submit ::Typhoeus::Request.new(response.headers_hash["Location"], :method => :get), options
+      if request.method.to_sym == :get && !options[:no_redirect] && (response.code == HTTP_MOVED_PERMANENTLY || response.code == HTTP_FOUND)
+        response = submit ::Typhoeus::Request.new(response.headers_hash["Location"], :method => :get), options.merge(:no_redirect => true)
       end
 
       response
