@@ -17,7 +17,7 @@ class ClientTest < Test::Unit::TestCase
     authenticator = Object.new
     authenticator.expects(:sign_request).twice
 
-    client = GDataPlus::Client.new(authenticator)
+    client = ::GDataPlus::Client.new(authenticator)
     response = client.submit(Typhoeus::Request.new(urls[0], :method => :get), :hydra => hydra)
     assert_equal 200, response.code
     assert_equal "the body", response.body
@@ -36,7 +36,7 @@ class ClientTest < Test::Unit::TestCase
     authenticator = Object.new
     authenticator.expects(:sign_request).twice
 
-    client = GDataPlus::Client.new(authenticator)
+    client = ::GDataPlus::Client.new(authenticator)
     client.submit(Typhoeus::Request.new(urls[0], :method => :get), :hydra => hydra)
   end
 end

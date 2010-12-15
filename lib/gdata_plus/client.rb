@@ -33,9 +33,10 @@ module GDataPlus
     end
 
     [:delete, :get, :post, :put].each do |method|
-      define_method(method) do |url, request_options = {}|
-        request_options = request_options.merge(:method => method)
-        request = ::Typhoeus::Request.new(url, request_options)
+      define_method(method) do |*args|
+        args[1] ||= {}
+        args[1] = args[1].merge(:method => method)
+        request = ::Typhoeus::Request.new(*args)
         submit request
       end
     end
