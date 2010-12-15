@@ -26,7 +26,7 @@ module GDataPlus
         ::OAuth::Consumer.new(@consumer_key, @consumer_secret,
           :request_token_url => "https://www.google.com/accounts/OAuthGetRequestToken",
           :authorize_url => "https://www.google.com/accounts/OAuthAuthorizeToken",
-          :access_token_url => "https://www.google.com/accounts/OAuthGetAccessToken",
+          :access_token_url => "https://www.google.com/accounts/OAuthGetAccessToken"
         )
       end
 
