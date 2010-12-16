@@ -20,6 +20,11 @@ module GDataPlus
       request.headers.merge!("GData-Version" => options[:gdata_version] || default_gdata_version)
       @authenticator.sign_request(request)
 
+      # add "If-Match: *" header if there is not already a conditional header
+      unless request.headers.keys.any? { |key| key =~ /^If-/ }
+        request.headers.merge!("If-Match" => "*")
+      end
+
       hydra.queue(request)
       hydra.run
       response = request.response

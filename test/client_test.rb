@@ -2,6 +2,27 @@ require 'helper'
 require 'typhoeus'
 
 class ClientTest < Test::Unit::TestCase
+  # TODO add a test that ensures the If-Match: * is not added if there is already a conditional header
+  should "automatically add If-Match header if an If-* header not already present" do
+    url = "http://foo.com/bar"
+
+    hydra = Typhoeus::Hydra.new
+    hydra.stub(:get, url).and_return(
+      Typhoeus::Response.new(:code => 200, :body => "the body", :time => 0.1)
+    )
+
+    # stub authenticator to do nothing
+    authenticator = Object.new
+    authenticator.expects(:sign_request).once
+
+    client = ::GDataPlus::Client.new(authenticator)
+    request = Typhoeus::Request.new(url, :method => :get)
+    response = client.submit(request, :hydra => hydra)
+    assert_equal 200, response.code
+
+    assert_equal "*", request.headers["If-Match"]
+  end
+
   should "automatically follow redirects" do
     # stub Tyhoeus hydra to return dummy responses
     hydra = Typhoeus::Hydra.new
@@ -13,7 +34,7 @@ class ClientTest < Test::Unit::TestCase
       Typhoeus::Response.new(:code => 200, :body => "the body", :time => 0.1)
     )
 
-    # stub authenticator to do nothing; if it's called more than two times then we're in a redirect loop
+    # stub authenticator to do nothing
     authenticator = Object.new
     authenticator.expects(:sign_request).twice
 
