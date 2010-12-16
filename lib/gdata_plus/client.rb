@@ -2,9 +2,6 @@ require 'typhoeus'
 
 module GDataPlus
   class Client
-    HTTP_MOVED_PERMANENTLY  = 301
-    HTTP_FOUND              = 302
-
     attr_reader :authenticator, :default_gdata_version
 
     def initialize(authenticator, default_gdata_version = "2.0")
@@ -30,7 +27,7 @@ module GDataPlus
       response = request.response
 
       # automatically follow redirects since some GData APIs (like Calendar) redirect GET requests
-      if request.method.to_sym == :get && !options[:no_redirect] && (response.code == HTTP_MOVED_PERMANENTLY || response.code == HTTP_FOUND)
+      if request.method.to_sym == :get && !options[:no_redirect] && (300..399).include?(response.code)
         response = submit ::Typhoeus::Request.new(response.headers_hash["Location"], :method => :get), options.merge(:no_redirect => true)
       end
 
