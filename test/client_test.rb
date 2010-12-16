@@ -58,6 +58,9 @@ class ClientTest < Test::Unit::TestCase
     authenticator.expects(:sign_request).twice
 
     client = ::GDataPlus::Client.new(authenticator)
-    client.submit(Typhoeus::Request.new(urls[0], :method => :get), :hydra => hydra)
+    exception = assert_raises(::GDataPlus::Exception) do
+      client.submit(Typhoeus::Request.new(urls[0], :method => :get), :hydra => hydra)
+    end
+    assert_equal 302, exception.response.code
   end
 end
