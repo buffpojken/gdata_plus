@@ -1,16 +1,48 @@
 = gdata_plus
 
-Description goes here.
+{Source code}[https://github.com/balexand/gdata_plus] | {RDoc}[http://rubydoc.info/gems/gdata_plus/frames] | {Ruby Gem}[https://rubygems.org/gems/gdata_plus]
 
-== Contributing to gdata_plus
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeus as an HTTP client.
+
+== Installation
+
+  gem install gdata_plus
+
+== Authentication
+
+=== OAuth
+
+TODO
+
+==== Using an existing access token
+
+TODO
+
+=== ClientLogin
+
+TODO
+
+=== Serializing authenticators
+
+TODO
+
+== Making requests
+
+TODO
+
+== Error handling
+
+TODO
+
+== Ruby support
+
+This project is tested against Ruby 1.8.7 and Ruby 1.9.2. There is an {issue}[https://github.com/balexand/gdata_plus/issues/1] with international characters and OAuth that affects Ruby 1.8.7.
+
+== Contributions
+
+This project is actively maintained. Please submit an issue if you find any bugs or want to request a new feature. Contributions are welcome. Please run the tests with Ruby 1.9.2 and 1.8.7 before submitting a pull request:
+
+  rake test
 
 == Copyright
 
