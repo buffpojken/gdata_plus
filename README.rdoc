@@ -8,27 +8,52 @@ Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeu
 
   gem install gdata_plus
 
+== Making requests
+
+Start by getting the client from the authenticator (see Authentication below).
+
+  client = authenticator.client
+
+Then make a request.
+
+  response = client.get("https://picasaweb.google.com/data/feed/api/user/default")
+
+Then parse the response using your preferred XML library. I'll use {Nokogiri}[http://nokogiri.org/tutorials/searching_a_xml_html_document.html] for this example.
+
+  feed = Nokogiri::XML(response.body)
+  album_titles = feed.xpath("//xmlns:entry/xmlns:title/text()").collect {|i| "#{i}"}
+
+If you need more control over the request, then you can create your own {Typhoeus}[https://github.com/pauldix/typhoeus] request and submit it to the client.
+
+  request = Typhoeus::Request.new(...)
+  client.submit request
+
 == Authentication
+
+{OAuth}[http://code.google.com/apis/gdata/docs/auth/oauth.html] and {ClientLogin}[http://code.google.com/apis/gdata/docs/auth/clientlogin.html] are supported. OAuth is preferred for web apps and ClientLogin is convenient for installed apps and command-line utilities.
 
 === OAuth
 
-TODO
+Before using OAuth, you will need to {register your domain}[http://code.google.com/apis/accounts/docs/RegistrationForWebAppsAuto.html] and get a consumer key and consumer secret from Google. See {the OAuth example}[https://github.com/balexand/gdata_plus/blob/master/examples/oauth_example.rb] for getting started with OAuth.
 
 ==== Using an existing access token
 
-TODO
+If you already have an access token and access token secret, then you can construct an OAuth authenticator as follows:
+
+  GDataPlus::Authenticator::OAuth.new(
+    :consumer_key => CONSUMER_KEY,
+    :consumer_secret => CONSUMER_SECRET,
+    :access_token => access_token,
+    :access_secret => access_secret
+  )
 
 === ClientLogin
 
-TODO
+See the {ClientLogin example}[https://github.com/balexand/gdata_plus/blob/master/examples/client_login_example.rb].
 
 === Serializing authenticators
 
-TODO
-
-== Making requests
-
-TODO
+Both the OAuth and ClientLogin authenticators can be serialized using a method like to_yaml.
 
 == Error handling
 
