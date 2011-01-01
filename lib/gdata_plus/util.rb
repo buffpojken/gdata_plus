@@ -12,5 +12,11 @@ module GDataPlus
       end
       options
     end
+
+    def raise_if_error(response)
+      unless (200..299).include? response.code
+        raise Exception.new(response)
+      end
+    end
   end
 end

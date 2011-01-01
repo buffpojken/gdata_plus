@@ -6,6 +6,8 @@ require 'typhoeus'
 module GDataPlus
   module Authenticator
     class OAuth
+      include Common
+
       # Create a new instance.
       #
       # === Options
@@ -15,7 +17,7 @@ module GDataPlus
       def initialize(options = {})
         required_options = [:consumer_key, :consumer_secret]
         optional_options = [:request_token, :request_secret, :access_token, :access_secret]
-        options = ::GDataPlus::Util.prepare_options(options, required_options, optional_options)
+        options = Util.prepare_options(options, required_options, optional_options)
 
         (required_options + optional_options).each do |option_name|
           instance_variable_set :"@#{option_name}", options[option_name]
@@ -96,10 +98,6 @@ module GDataPlus
         })
         request.headers.merge!({"Authorization" => helper.header})
         request
-      end
-
-      def client(*args)
-        ::GDataPlus::Client.new(self, *args)
       end
     end
   end

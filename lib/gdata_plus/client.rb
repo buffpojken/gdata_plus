@@ -31,9 +31,7 @@ module GDataPlus
         response = submit ::Typhoeus::Request.new(response.headers_hash["Location"], :method => :get), options.merge(:no_redirect => true)
       end
 
-      unless (200..299).include? response.code
-        raise ::GDataPlus::Exception.new(response)
-      end
+      Util.raise_if_error(response)
 
       response
     end
