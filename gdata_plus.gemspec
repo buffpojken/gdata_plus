@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Alexander"]
-  s.date = %q{2010-12-13}
-  s.description = %q{TODO: longer description of your gem}
+  s.date = %q{2010-12-31}
+  s.description = %q{Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeus as an HTTP client}
   s.email = %q{balexand@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -26,22 +26,31 @@ Gem::Specification.new do |s|
     "VERSION",
     "gdata_plus.gemspec",
     "lib/gdata_plus.rb",
+    "lib/gdata_plus/authenticator/client_login.rb",
+    "lib/gdata_plus/authenticator/common.rb",
     "lib/gdata_plus/authenticator/o_auth.rb",
+    "lib/gdata_plus/client.rb",
+    "lib/gdata_plus/exception.rb",
     "lib/gdata_plus/util.rb",
+    "test/authenticator/client_login_test.rb",
     "test/authenticator/o_auth_test.rb",
-    "test/helper.rb",
-    "test/test_gdata_plus.rb"
+    "test/client_test.rb",
+    "test/exception_test.rb",
+    "test/helper.rb"
   ]
   s.homepage = %q{http://github.com/balexand/gdata_plus}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Simple, easy to use GData API that supports OAuth, Ruby 1.8/1.9 and uses Typhoeus as an HTTP client}
   s.test_files = [
-    "examples/oauth_authentication.rb",
+    "examples/client_login_example.rb",
+    "examples/oauth_example.rb",
+    "test/authenticator/client_login_test.rb",
     "test/authenticator/o_auth_test.rb",
-    "test/helper.rb",
-    "test/test_gdata_plus.rb"
+    "test/client_test.rb",
+    "test/exception_test.rb",
+    "test/helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -51,30 +60,33 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
       s.add_runtime_dependency(%q<oauth>, [">= 0"])
+      s.add_runtime_dependency(%q<typhoeus>, [">= 0"])
       s.add_development_dependency(%q<sinatra>, [">= 0"])
-      s.add_development_dependency(%q<nokogiri>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.1"])
+      s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<oauth>, [">= 0"])
+      s.add_dependency(%q<typhoeus>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
-      s.add_dependency(%q<nokogiri>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
+      s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<oauth>, [">= 0"])
+    s.add_dependency(%q<typhoeus>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
-    s.add_dependency(%q<nokogiri>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.1"])
+    s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<rcov>, [">= 0"])
   end
 end
