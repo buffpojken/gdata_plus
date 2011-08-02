@@ -17,8 +17,9 @@ module GDataPlus
       request.headers.merge!("GData-Version" => options[:gdata_version] || default_gdata_version)
       @authenticator.sign_request(request)
 
-      # add "If-Match: *" header if there is not already a conditional header
-      unless request.headers.keys.any? { |key| key =~ /^If-/ }
+      # add "If-Match: *" header if there is not already a conditional header and
+      # the request is not a post (since If-Match headers on POSTs triggers concurreny-errors)
+      if !request.headers.keys.any? { |key| key =~ /^If-/ } && !request.method == :post
         request.headers.merge!("If-Match" => "*")
       end
 
